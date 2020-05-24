@@ -6,30 +6,24 @@
 Summary:	Monad classes, using type families
 Summary(pl.UTF-8):	Klasy monad wykorzystujące rodziny typów
 Name:		ghc-%{pkgname}
-Version:	0.1.0.1
+Version:	0.1.0.3
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/monads-tf
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	a52da5bb97bade0f5948d2db188b0e95
+# Source0-md5:	0c946ba2101c6723d9637d2d145153f8
 URL:		http://hackage.haskell.org/package/monads-tf
 BuildRequires:	ghc >= 6.12.3
-BuildRequires:	ghc-base < 6
 BuildRequires:	ghc-transformers >= 0.2.0.0
-BuildRequires:	ghc-transformers < 0.4
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
-BuildRequires:	ghc-base-prof < 6
 BuildRequires:	ghc-transformers-prof >= 0.2.0.0
-BuildRequires:	ghc-transformers-prof < 0.4
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
 %requires_eq	ghc
-Requires:	ghc-base < 6
 Requires:	ghc-transformers >= 0.2.0.0
-Requires:	ghc-transformers < 0.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -59,9 +53,7 @@ Summary:	Profiling %{pkgname} library for GHC
 Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	ghc-base-prof < 6
 Requires:	ghc-transformers-prof >= 0.2.0.0
-Requires:	ghc-transformers-prof < 0.4
 
 %description prof
 Profiling %{pkgname} library for GHC. Should be installed when GHC's
@@ -124,28 +116,36 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSmonads-tf-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonads-tf-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonads-tf-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonads-tf-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonads-tf-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Cont
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Cont/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Cont/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Error
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Error/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Error/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/RWS
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/RWS/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/RWS/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Reader
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Reader/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Reader/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/State
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/State/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/State/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Writer
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Writer/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Writer/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonads-tf-%{version}_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonads-tf-%{version}-*_p.a
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Cont/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Error/*.p_hi
