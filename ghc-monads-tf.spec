@@ -7,7 +7,7 @@ Summary:	Monad classes, using type families
 Summary(pl.UTF-8):	Klasy monad wykorzystujące rodziny typów
 Name:		ghc-%{pkgname}
 Version:	0.1.0.3
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/monads-tf
